@@ -1,0 +1,95 @@
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import api from "../../lib/ghost";
+import React from "react";
+import fmtDate from "@lib/fmtDate";
+import { NextSeo } from "next-seo";
+
+type Post = {
+  slug: string;
+  title: string;
+  html: string;
+  published_at: string;
+  feature_image: string | null;
+  feature_image_alt: string | null;
+};
+
+export default function Post({
+  post,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { feature_image, feature_image_alt }: Post = post;
+  const pubDate: string = fmtDate(post.published_at);
+
+  return (
+    <>
+      <NextSeo
+        title={post.meta_title || post.title}
+        description={post.meta_description || post.excerpt}
+        openGraph={{
+          title: post.title,
+          description: post.meta_descript || post.excerpt,
+          type: "article",
+        }}
+      />
+      <div className="w-full">
+        <article className="lg:max-w-screen-lg mx-auto p-6 space-y-8">
+          <header className="prose prose-sm sm:prose lg:prose-lg mx-auto">
+            <time
+              dateTime={new Date(post.published_at).toISOString()}
+              className="text-sm text-gray-600"
+            >
+              {pubDate}
+            </time>
+            <h1 className="font-serif leading-relaxed">{post.title}</h1>
+          </header>
+
+          {feature_image && (
+            <figure className="relative">
+              <img
+                className="w-full"
+                src={post.feature_image}
+                alt={feature_image_alt || "Featured image"}
+              />
+            </figure>
+          )}
+
+          <main
+            className="mx-auto prose prose-zinc lg:prose-lg prose-a:text-pink-700 hover:prose-a:text-pink-900 "
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </article>
+      </div>
+    </>
+  );
+}
+
+// Pass the page slug over to the "getSinglePost" function
+// In turn passing it to the posts.read() to query the Ghost Content API
+export const getStaticProps: GetStaticProps = async (context) => {
+  const postSlug = context?.params?.slug;
+  const post: Post = await api.posts.read({ slug: postSlug });
+
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { post },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Get Posts from Ghost CMS
+  const posts: Post[] = await api.posts
+    .browse({ limit: "all" })
+    .catch((err: String) => console.log(err));
+
+  // Get the paths we want to create based on posts
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  // { fallback: false } means posts not found should 404.
+  return { paths, fallback: false };
+};
