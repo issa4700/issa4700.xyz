@@ -1,10 +1,12 @@
 import Footer from "@comp/Footer";
+import Header from "@comp/Header";
 import React from "react";
 
 const Layout: React.FC<{}> = ({ children }) => {
   return (
-    <div>
-      <div className="container mx-auto p-6">{children}</div>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <div className="flex-grow lg:mx-auto p-6">{children}</div>
       <Footer />
     </div>
   );
