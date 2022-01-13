@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 const socials = [
   { name: "Linkedin", link: "https://www.linkedin.com/in/issa-abdullah" },
@@ -36,6 +37,13 @@ export default function Index() {
           <hr className="sm:hidden" />
 
           <nav className="text-base flex flex-col sm:mt-6">
+            <Link href="/writings">
+              <a className="text-gray-600 hover:text-gray-900 py-2 sm:py-0 px-2 lg:px-0 hover:underline">
+                Blog
+              </a>
+            </Link>
+
+            {/* Social channels */}
             {socials.map((social) => (
               <a
                 className="text-gray-600 hover:text-gray-900 py-2 sm:py-0 px-2 lg:px-0 hover:underline"

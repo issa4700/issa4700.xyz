@@ -33,7 +33,7 @@ export default function Posts({
             </section>
             {/* Display blog post excerpt */}
             {posts.map((post: Post) => {
-              return <Card post={post} />;
+              return <Card key={post.id} post={post} />;
             })}
           </main>
         </div>
