@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 
 const socials = [
-  { name: "Linkedin", link: "https://www.linkedin.com/in/issa-abdullah/" },
+  { name: "Linkedin", link: "https://www.linkedin.com/in/issa-abdullah" },
   { name: "Github", link: "https://github.com/issa4700" },
   { name: "Instagram", link: "https://www.instagram.com/issa4700/" },
 ];
@@ -28,21 +28,24 @@ export default function Index() {
           <h1 className="text-5xl font-semibold text-gray-900">
             Issa Abdullah
           </h1>
-          <p className="text-lg font-thin max-w-prose text-gray-500">
+          <p className="font-thin max-w-prose text-gray-500">
             I am a student at the University of Leeds currently working towards
             a degree in Aerospace Engineering.
           </p>
 
-          <ul className="text-base flex flex-col sm:mt-6">
+          <hr className="sm:hidden" />
+
+          <nav className="text-base flex flex-col sm:mt-6">
             {socials.map((social) => (
-              <li
-                className="text-gray-600 hover:text-gray-900"
+              <a
+                className="text-gray-600 hover:text-gray-900 py-2 sm:py-0 px-2 lg:px-0 hover:underline"
                 key={social.name}
+                href={social.link}
               >
-                <a href={social.link}>{social.name}</a>
-              </li>
+                {social.name}
+              </a>
             ))}
-          </ul>
+          </nav>
         </div>
       </div>
     </div>

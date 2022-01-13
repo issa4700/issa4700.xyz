@@ -3,6 +3,7 @@ import api from "../../lib/ghost";
 import React from "react";
 import fmtDate from "@lib/fmtDate";
 import { NextSeo } from "next-seo";
+import Layout from "@comp/layouts/Blog";
 
 type Post = {
   slug: string;
@@ -30,8 +31,8 @@ export default function Post({
           type: "article",
         }}
       />
-      <div className="w-full">
-        <article className="lg:max-w-screen-lg mx-auto p-6 space-y-8">
+      <Layout>
+        <article className="w-full lg:max-w-screen-lg mx-auto space-y-8">
           <header className="prose prose-sm sm:prose lg:prose-lg mx-auto">
             <time
               dateTime={new Date(post.published_at).toISOString()}
@@ -39,7 +40,7 @@ export default function Post({
             >
               {pubDate}
             </time>
-            <h1 className="font-serif leading-relaxed">{post.title}</h1>
+            <h1 className="font-serif">{post.title}</h1>
           </header>
 
           {feature_image && (
@@ -57,7 +58,7 @@ export default function Post({
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </article>
-      </div>
+      </Layout>
     </>
   );
 }

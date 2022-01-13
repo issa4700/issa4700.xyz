@@ -23,7 +23,7 @@ export default function Posts({
         description="A collection of my random musings."
       />
       <Layout>
-        <div className="max-w-screen-lg mx-auto text-gray-600 body-font overflow-hidden">
+        <div className="max-w-screen-lg mx-auto text-gray-600">
           <main className="flex flex-col">
             <section className="space-y-2 mb-12">
               <h1 className="text-4xl font-bold text-gray-900">Writings</h1>

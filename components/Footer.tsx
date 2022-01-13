@@ -5,7 +5,7 @@ import Link from "next/link";
 const Footer = () => {
   const year: number = new Date(Date.now()).getFullYear();
   return (
-    <footer className="bg-gray-100 text-gray-500 text-sm py-4 capitalize">
+    <footer className="bg-gray-100 text-gray-500 text-sm py-4 mt-6 capitalize">
       <div className="mx-auto max-w-screen-xl flex flex-col items-center space-y-2">
         <nav>
           <ul>
