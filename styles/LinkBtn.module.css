@@ -1,0 +1,12 @@
+.LinkBtn {
+  /* Base styling */
+  @apply mx-auto py-3 px-4 w-56 text-center outline outline-2;
+
+  /* Hover animations and styles */
+  @apply hover:bg-gray-900 hover:text-white;
+  @apply transition ease-in duration-100;
+
+  /* Dark theme specific styles */
+  @apply dark:outline-gray-50;
+  @apply dark:hover:bg-gray-50 dark:hover:text-gray-800;
+}
