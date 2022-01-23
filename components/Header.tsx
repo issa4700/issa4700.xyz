@@ -11,7 +11,7 @@ const Header = () => {
     <header className="w-full container mx-auto flex flex-row p-6 justify-between text-gray-700 items-center">
       <div className="">
         <Link href="/">
-          <a className="text-2xl text-gray-800 font-extrabold hover:opacity-75 transition duration-75 ease-in-out">
+          <a className="text-2xl text-gray-800 dark:text-gray-50 font-extrabold hover:opacity-75 transition duration-75 ease-in-out">
             Issa.Abdullah
           </a>
         </Link>
@@ -21,7 +21,7 @@ const Header = () => {
         <nav className="hidden md:flex space-x-8">
           {Nav.map((navitem) => (
             <Link key={navitem.href} href={navitem.href}>
-              <a className="text-gray-700 hover:text-pink-700 px-3 py-2 transition duration-75 ease-in-out">
+              <a className="text-gray-700 hover:text-pink-700 dark:text-pink-700 dark:hover:text-pink-800 px-3 py-2 transition duration-75 ease-in-out">
                 {navitem.label}
               </a>
             </Link>

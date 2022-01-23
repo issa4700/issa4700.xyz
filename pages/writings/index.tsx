@@ -26,8 +26,10 @@ export default function Posts({
         <div className="max-w-screen-lg mx-auto text-gray-600">
           <main className="flex flex-col">
             <section className="space-y-2 mb-12">
-              <h1 className="text-4xl font-bold text-gray-900">Writings</h1>
-              <p className="text-lg leading-relaxed text-gray-600">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                Writings
+              </h1>
+              <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400">
                 A collection of my random musings.
               </p>
             </section>

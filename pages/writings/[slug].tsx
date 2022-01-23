@@ -33,14 +33,16 @@ export default function Post({
       />
       <Layout>
         <article className="w-full lg:max-w-screen-lg mx-auto space-y-8">
-          <header className="prose prose-sm sm:prose lg:prose-lg mx-auto">
+          <header className="prose prose-sm sm:prose lg:prose-lg prose-hr:border-white mx-auto">
             <time
               dateTime={new Date(post.published_at).toISOString()}
-              className="text-sm text-gray-600"
+              className="text-sm text-gray-500"
             >
               {pubDate}
             </time>
-            <h1 className="font-serif">{post.title}</h1>
+            <h1 className="font-serif">
+              <span className="dark:text-gray-100">{post.title}</span>
+            </h1>
           </header>
 
           {feature_image && (
@@ -54,7 +56,7 @@ export default function Post({
           )}
 
           <main
-            className="mx-auto prose prose-zinc lg:prose-lg prose-a:text-pink-700 hover:prose-a:text-pink-900 "
+            className="mx-auto prose dark:prose-invert prose-zinc lg:prose-lg prose-a:text-pink-700 hover:prose-a:text-pink-900 "
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </article>
