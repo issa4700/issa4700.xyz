@@ -1,17 +1,9 @@
-import React from "react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import api from "@lib/ghost";
-import Layout from "@comp/layouts/Blog";
+import Layout from "@comp/Layout";
 import Card from "@comp/blog/Card";
 import { NextSeo } from "next-seo";
-
-type Post = {
-  id: string;
-  title: string;
-  excerpt: string;
-  slug: string;
-  published_at: Date;
-};
+import { PostOrPage } from "@tryghost/content-api";
 
 export default function Posts({
   posts,
@@ -23,29 +15,30 @@ export default function Posts({
         description="A collection of my random musings."
       />
       <Layout>
-        <div className="max-w-screen-lg mx-auto text-gray-600">
-          <main className="flex flex-col">
-            <section className="space-y-2 mb-12">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-                Writings
-              </h1>
-              <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                A collection of my random musings.
-              </p>
-            </section>
+        <section className="py-14 lg:px-20">
+          {/* Hero */}
+          <div className="container mx-auto flex flex-col gap-y-5 px-5">
+            <h1 className="text-4xl font-bold text-gray-900">Writings</h1>
+            <p className="text-lg leading-relaxed text-gray-600">
+              A collection of my random musings.
+            </p>
+          </div>
+        </section>
+        <section className="bg-white py-20 lg:px-20">
+          <main className="container mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-14 gap-y-20 px-5">
             {/* Display blog post excerpt */}
-            {posts.map((post: Post) => {
+            {posts.map((post: PostOrPage) => {
               return <Card key={post.id} post={post} />;
             })}
           </main>
-        </div>
+        </section>
       </Layout>
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const posts: Post[] = await api.posts
+  const posts = await api.posts
     .browse({ limit: "all" })
     .catch((err: String) => console.log(err));
 

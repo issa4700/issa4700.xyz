@@ -1,38 +1,25 @@
-import React from "react";
 import Link from "next/link";
 import fmtDate from "@lib/fmtDate";
+import { PostOrPage } from "@tryghost/content-api";
 
-interface Props {
-  post: {
-    id: string;
-    slug: string;
-    title: string;
-    excerpt: string;
-    published_at: Date;
-  };
-}
-
-const Card = ({ post }: Props) => {
-  const { id, slug, title, excerpt, published_at: date } = post;
+const Card: React.FC<{ post: PostOrPage }> = ({ post }) => {
+  const { slug, title, excerpt, published_at: date, feature_image } = post;
   return (
-    <Link key={id} href={"/writings/" + slug}>
-      <a className="border-t dark:border-t-gray-700 py-8 lg:py-12 hover:opacity-75 transition duration-75 ease-in-out">
-        <article className="flex flex-wrap md:flex-nowrap">
-          <aside className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-            <span className="mt-1 text-gray-500">{fmtDate(date)}</span>
-          </aside>
-          <section className="md:flex-grow space-y-4 ">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 title-font mb-2">
-              {title}
-            </h2>
-            <p className="leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-3">
-              {excerpt}
-            </p>
-            <span className="text-pink-700 inline-flex items-center mt-4">
-              Read More &rarr;
-            </span>
-          </section>
-        </article>
+    <Link href={"/writings/" + slug}>
+      <a className="sm:first:col-span-2 flex flex-col gap-y-2 group hover:-translate-y-1 transition ease-in-out duration-150">
+        <figure className="h-80">
+          <img
+            className="object-cover h-full w-full group-hover:opacity-90 transition ease-in-out duration-150"
+            src={feature_image || ""}
+          />
+        </figure>
+        <div className="flex flex-col gap-y-2">
+          <span className="text-sm text-gray-600">{fmtDate(date)}</span>
+          <h1 className="text-xl font-semibold text-sky-900 group-hover:text-sky-600 transition ease-in-out duration-150">
+            {title}
+          </h1>
+          <p className="text-gray-700">{excerpt}</p>
+        </div>
       </a>
     </Link>
   );
