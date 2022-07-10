@@ -15,7 +15,7 @@ export default function Posts({
         description="A collection of my random musings."
       />
       <Layout>
-        <section className="py-14 lg:px-20">
+        <section className="py-12 lg:px-20">
           {/* Hero */}
           <div className="container mx-auto flex flex-col gap-y-5 px-5">
             <h1 className="text-4xl font-bold text-gray-900">Writings</h1>
