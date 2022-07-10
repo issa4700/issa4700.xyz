@@ -24,8 +24,8 @@ export default function Posts({
             </p>
           </div>
         </section>
-        <section className="bg-white py-20 lg:px-20">
-          <main className="container mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-14 gap-y-20 px-5">
+        <section className="bg-white py-16 lg:px-20">
+          <main className="container mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-16 px-5">
             {/* Display blog post excerpt */}
             {posts.map((post: PostOrPage) => {
               return <Card key={post.id} post={post} />;
