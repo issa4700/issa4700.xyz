@@ -3,12 +3,12 @@
  * @param date
  * @returns {String} String in mmm dd, YYYY
  */
-const fmtDate = (date: Date): string => {
+const fmtDate = (date?: null | string): string => {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(new Date(date));
+  }).format(new Date(date || Date.now()));
 };
 
 export default fmtDate;
