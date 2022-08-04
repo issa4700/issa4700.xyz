@@ -3,21 +3,13 @@ import api from "../../lib/ghost";
 import React from "react";
 import fmtDate from "@lib/fmtDate";
 import { NextSeo } from "next-seo";
-import Layout from "@comp/layouts/Blog";
-
-type Post = {
-  slug: string;
-  title: string;
-  html: string;
-  published_at: string;
-  feature_image: string | null;
-  feature_image_alt: string | null;
-};
+import Layout from "@comp/Layout";
+import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
 
 export default function Post({
   post,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { feature_image, feature_image_alt }: Post = post;
+  const { feature_image, feature_image_alt } = post;
   const pubDate: string = fmtDate(post.published_at);
 
   return (
@@ -69,7 +61,7 @@ export default function Post({
 // In turn passing it to the posts.read() to query the Ghost Content API
 export const getStaticProps: GetStaticProps = async (context) => {
   const postSlug = context?.params?.slug;
-  const post: Post = await api.posts.read({ slug: postSlug });
+  const post = await api.posts.read({ slug: postSlug });
 
   if (!post) {
     return {
@@ -84,12 +76,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Get Posts from Ghost CMS
-  const posts: Post[] = await api.posts
+  const posts = await api.posts
     .browse({ limit: "all" })
     .catch((err: String) => console.log(err));
 
   // Get the paths we want to create based on posts
-  const paths = posts.map((post) => ({
+  const paths = posts?.map((post: PostOrPage) => ({
     params: { slug: post.slug },
   }));
 
