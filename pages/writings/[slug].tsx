@@ -60,7 +60,7 @@ export default function Post({
 // Pass the page slug over to the "getSinglePost" function
 // In turn passing it to the posts.read() to query the Ghost Content API
 export const getStaticProps: GetStaticProps = async (context) => {
-  const postSlug = context?.params?.slug;
+  const postSlug = (context?.params?.slug as string) || null;
   const post = await api.posts.read({ slug: postSlug });
 
   if (!post) {
@@ -76,12 +76,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Get Posts from Ghost CMS
-  const posts = await api.posts
-    .browse({ limit: "all" })
-    .catch((err: String) => console.log(err));
+  const posts =
+    (await api.posts
+      .browse({ limit: "all" })
+      .catch((err: String) => console.log(err))) || [];
 
   // Get the paths we want to create based on posts
-  const paths = posts?.map((post: PostOrPage) => ({
+  const paths = posts.map((post: PostOrPage) => ({
     params: { slug: post.slug },
   }));
 
